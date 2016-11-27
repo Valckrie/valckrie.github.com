@@ -89,38 +89,38 @@ d3.select(".next")
 	});
 
 var files = [
-	{ filename: "0.csv", label: "May 2014"},
-	{ filename: "1.csv", label: "June 2014"},
-	{ filename: "2.csv", label: "July 2014"},
-	{ filename: "3.csv", label: "Oct 2014"},
-	{ filename: "4.csv", label: "Nov 2014"},
-	{ filename: "5.csv", label: "Dec 2014"},
-	{ filename: "6.csv", label: "Jan 2015"},
-	{ filename: "7.csv", label: "Feb 2015"},
-	{ filename: "8.csv", label: "Mar 2015"},
-	{ filename: "9.csv", label: "Apr 2015"},
-	{ filename: "10.csv", label: "May 2015"},
-	{ filename: "11.csv", label: "Jun 2015"},
-	{ filename: "12.csv", label: "Jul 2015"},
-	{ filename: "13.csv", label: "Aug 2015"},
-	{ filename: "14.csv", label: "Sept 2015"},
-	{ filename: "15.csv", label: "Oct 2015"},
-	{ filename: "16.csv", label: "Nov 2015"},
-	{ filename: "17.csv", label: "Dec 2015"},
-	{ filename: "18.csv", label: "Jan 2016"},
-	{ filename: "19.csv", label: "Feb 2016"},
-	{ filename: "20.csv", label: "Mar 2016"},
-	{ filename: "21.csv", label: "Apr 2016"},
-	{ filename: "22.csv", label: "May 2016"},
-	{ filename: "23.csv", label: "Jun 2016"},
-	{ filename: "24.csv", label: "Jul 2016"},
-	{ filename: "25.csv", label: "Aug 2016"},
-	{ filename: "26.csv", label: "Sept 2016"},
-	{ filename: "27.csv", label: "Oct 2016"},
-	{ filename: "28.csv", label: "Nov 2016"},
+	{ filename: "2014May.csv", label: "May 2014", fdata: []},
+	{ filename: "2014June.csv", label: "June 2014", fdata: []},
+	{ filename: "2014July.csv", label: "July 2014", fdata: []},
+	{ filename: "2014October.csv", label: "Oct 2014", fdata: []},
+	{ filename: "2014November.csv", label: "Nov 2014", fdata: []},
+	{ filename: "2014December.csv", label: "Dec 2014", fdata: []},
+	{ filename: "2015January.csv", label: "Jan 2015", fdata: []},
+	{ filename: "2015February.csv", label: "Feb 2015", fdata:[] },
+	{ filename: "2015March.csv", label: "Mar 2015", fdata:[] },
+	{ filename: "2015April.csv", label: "Apr 2015", fdata:[] },
+	{ filename: "2015May.csv", label: "May 2015", fdata:[] },
+	{ filename: "2015June.csv", label: "Jun 2015", fdata:[] },
+	{ filename: "2015July.csv", label: "Jul 2015", fdata:[] },
+	{ filename: "2015August.csv", label: "Aug 2015", fdata:[] },
+	{ filename: "2015September.csv", label: "Sept 2015", fdata: [] },
+	{ filename: "2015October.csv", label: "Oct 2015", fdata: [] },
+	{ filename: "2015November.csv", label: "Nov 2015", fdata: [] },
+	{ filename: "2015December.csv", label: "Dec 2015", fdata: [] },
+	{ filename: "2016January.csv", label: "Jan 2016", fdata: [] },
+	{ filename: "2016February.csv", label: "Feb 2016", fdata: [] },
+	{ filename: "2016March.csv", label: "Mar 2016", fdata: [] },
+	{ filename: "2016April.csv", label: "Apr 2016", fdata: [] },
+	{ filename: "2016May.csv", label: "May 2016", fdata: [] },
+	{ filename: "2016June.csv", label: "Jun 2016", fdata: [] },
+	{ filename: "2016July.csv", label: "Jul 2016", fdata: [] },
+	{ filename: "2016August.csv", label: "Aug 2016", fdata: [] },
+	{ filename: "2016September.csv", label: "Sept 2016", fdata: [] },
+	{ filename: "2016October.csv", label: "Oct 2016", fdata: [] },
+	{ filename: "2016November.csv", label: "Nov 2016", fdata: [] },
 ];
 
-var filecounter = 0;
+var filecounter = 1; //0 already done
 
 function nextData() {
 	if (filecounter > 28) {
@@ -128,6 +128,13 @@ function nextData() {
 		return;
 	}
 	var file = files[filecounter];
+	change(files[filecounter].fdata);
+	document.getElementById("year").textContent = file.label;
+	filecounter++;
+}
+
+function firstData() {
+	var file = files[0];
 	var url = "data/" + file.filename;
 	d3.csv(url, type, function(error, data) {
 		  if (error) throw error;
@@ -136,12 +143,29 @@ function nextData() {
 		}));
 	});
 	document.getElementById("year").textContent = file.label;
-	filecounter++;
 }
 
-nextData();
+function loadData() {
+	// start 1
+	for (i = 0; i < files.length; i++) { 
+		var file = files[i];
+		var url = "data/" + file.filename;
+		getData(url, i);
+	}
+}
 
-var timer = window.setInterval(nextData, 3500);
+function getData(url, i) {
+	d3.csv(url, type, function(error, data) {
+	  	if (error) throw error;
+  		files[i].fdata = data.sort(function(a,b) {
+ 			return d3.ascending(a.label, b.label);
+		});
+	});
+}
+
+firstData();
+loadData();
+var timer = window.setInterval(nextData, 2500);
 
 function type(d) {
   d.words = +d.words;
@@ -161,7 +185,7 @@ function mergeWithFirstEqualZero(first, second){
 }
 
 function change(data) {
-	var duration = 2500; //+document.getElementById("duration").value;
+	var duration = 1500; //+document.getElementById("duration").value;
 	var data0 = svg.select(".slices").selectAll("path.slice")
 		.data().map(function(d) { return d.data });
 	if (data0.length == 0) data0 = data;
