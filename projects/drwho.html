@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 1280px;
+  height: 720px;
+  position: relative;
+}
+svg{
+	width: 100%;
+	height: 100%;
+}
+path.slice{
+	stroke-width:2px;
+}
+
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+
+</style>
+<body>
+
+<h1>Words spoken in conversation over time - <span id="year"></span></h1>
+
+<!-- Duration: 0<input type="range" id="duration" min="0" max="5000">5000  -->
+<!-- <br> -->
+<!-- <button class="next">next</button>  -->
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var svg = d3.select("body")
+	.append("svg")
+	.append("g")
+
+svg.append("g")
+	.attr("class", "slices");
+svg.append("g")
+	.attr("class", "labels");
+svg.append("g")
+	.attr("class", "lines");
+
+var width = 1280,
+    height = 720,
+	radius = Math.min(width, height) / 2;
+
+var pie = d3.layout.pie()
+	.sort(null)
+	.value(function(d) {
+		return d.value;
+	});
+
+var arc = d3.svg.arc()
+	.outerRadius(radius * 0.8)
+	.innerRadius(radius * 0.4);
+
+var outerArc = d3.svg.arc()
+	.innerRadius(radius * 0.9)
+	.outerRadius(radius * 0.9);
+
+svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var key = function(d){ return d.data.label; };
+
+var color = d3.scale.category20();
+	// .domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
+	//.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+function randomData (){
+	var labels = color.domain();
+	return labels.map(function(label){
+		return { label: label, value: Math.random() }
+	}).filter(function() {
+		return Math.random() > .5;
+	}).sort(function(a,b) {
+		return d3.ascending(a.label, b.label);
+	});
+}
+
+d3.select(".next")
+	.on("click", function(){
+		nextData();
+	});
+
+var files = [
+	{ filename: "2014May.csv", label: "May 2014", fdata: []},
+	{ filename: "2014June.csv", label: "June 2014", fdata: []},
+	{ filename: "2014July.csv", label: "July 2014", fdata: []},
+	{ filename: "2014October.csv", label: "Oct 2014", fdata: []},
+	{ filename: "2014November.csv", label: "Nov 2014", fdata: []},
+	{ filename: "2014December.csv", label: "Dec 2014", fdata: []},
+	{ filename: "2015January.csv", label: "Jan 2015", fdata: []},
+	{ filename: "2015February.csv", label: "Feb 2015", fdata:[] },
+	{ filename: "2015March.csv", label: "Mar 2015", fdata:[] },
+	{ filename: "2015April.csv", label: "Apr 2015", fdata:[] },
+	{ filename: "2015May.csv", label: "May 2015", fdata:[] },
+	{ filename: "2015June.csv", label: "Jun 2015", fdata:[] },
+	{ filename: "2015July.csv", label: "Jul 2015", fdata:[] },
+	{ filename: "2015August.csv", label: "Aug 2015", fdata:[] },
+	{ filename: "2015September.csv", label: "Sept 2015", fdata: [] },
+	{ filename: "2015October.csv", label: "Oct 2015", fdata: [] },
+	{ filename: "2015November.csv", label: "Nov 2015", fdata: [] },
+	{ filename: "2015December.csv", label: "Dec 2015", fdata: [] },
+	{ filename: "2016January.csv", label: "Jan 2016", fdata: [] },
+	{ filename: "2016February.csv", label: "Feb 2016", fdata: [] },
+	{ filename: "2016March.csv", label: "Mar 2016", fdata: [] },
+	{ filename: "2016April.csv", label: "Apr 2016", fdata: [] },
+	{ filename: "2016May.csv", label: "May 2016", fdata: [] },
+	{ filename: "2016June.csv", label: "Jun 2016", fdata: [] },
+	{ filename: "2016July.csv", label: "Jul 2016", fdata: [] },
+	{ filename: "2016August.csv", label: "Aug 2016", fdata: [] },
+	{ filename: "2016September.csv", label: "Sept 2016", fdata: [] },
+	{ filename: "2016October.csv", label: "Oct 2016", fdata: [] },
+	{ filename: "2016November.csv", label: "Nov 2016", fdata: [] },
+];
+
+var filecounter = 1; //0 already done
+
+function nextData() {
+	if (filecounter > 28) {
+		clearInterval(timer);
+		return;
+	}
+	var file = files[filecounter];
+	change(files[filecounter].fdata);
+	document.getElementById("year").textContent = file.label;
+	filecounter++;
+}
+
+function firstData() {
+	var file = files[0];
+	var url = "data/" + file.filename;
+	d3.csv(url, type, function(error, data) {
+		  if (error) throw error;
+		  change(data.sort(function(a,b) {
+			return d3.ascending(a.label, b.label);
+		}));
+	});
+	document.getElementById("year").textContent = file.label;
+}
+
+function loadData() {
+	// start 1
+	for (i = 0; i < files.length; i++) { 
+		var file = files[i];
+		var url = "data/" + file.filename;
+		getData(url, i);
+	}
+}
+
+function getData(url, i) {
+	d3.csv(url, type, function(error, data) {
+	  	if (error) throw error;
+  		files[i].fdata = data.sort(function(a,b) {
+ 			return d3.ascending(a.label, b.label);
+		});
+	});
+}
+
+firstData();
+loadData();
+var timer = window.setInterval(nextData, 2500);
+
+function type(d) {
+  d.words = +d.words;
+  return d;
+}
+
+function mergeWithFirstEqualZero(first, second){
+	var secondSet = d3.set(); second.forEach(function(d) { secondSet.add(d.label); });
+
+	var onlyFirst = first
+		.filter(function(d){ return !secondSet.has(d.label) })
+		.map(function(d) { return {label: d.label, value: 0}; });
+	return d3.merge([ second, onlyFirst ])
+		.sort(function(a,b) {
+			return d3.ascending(a.label, b.label);
+		});
+}
+
+function change(data) {
+	var duration = 1500; //+document.getElementById("duration").value;
+	var data0 = svg.select(".slices").selectAll("path.slice")
+		.data().map(function(d) { return d.data });
+	if (data0.length == 0) data0 = data;
+	var was = mergeWithFirstEqualZero(data, data0);
+	var is = mergeWithFirstEqualZero(data0, data);
+
+	/* ------- SLICE ARCS -------*/
+
+	var slice = svg.select(".slices").selectAll("path.slice")
+		.data(pie(was), key);
+
+	slice.enter()
+		.insert("path")
+		.attr("class", "slice")
+		.style("fill", function(d) { return color(d.data.label); })
+		.each(function(d) {
+			this._current = d;
+		});
+
+	slice = svg.select(".slices").selectAll("path.slice")
+		.data(pie(is), key);
+
+	slice		
+		.transition().duration(duration)
+		.attrTween("d", function(d) {
+			var interpolate = d3.interpolate(this._current, d);
+			var _this = this;
+			return function(t) {
+				_this._current = interpolate(t);
+				return arc(_this._current);
+			};
+		});
+
+	slice = svg.select(".slices").selectAll("path.slice")
+		.data(pie(data), key);
+
+	slice
+		.exit().transition().delay(duration).duration(0)
+		.remove();
+
+	/* ------- TEXT LABELS -------*/
+
+	var text = svg.select(".labels").selectAll("text")
+		.data(pie(was), key);
+
+	text.enter()
+		.append("text")
+		.attr("dy", ".35em")
+		.style("opacity", 0)
+		.text(function(d) {
+			return d.data.label + " (" + d.value + ")";
+		})
+		.each(function(d) {
+			this._current = d;
+		});
+	
+	function midAngle(d){
+		return d.startAngle + (d.endAngle - d.startAngle)/2;
+	}
+
+	text = svg.select(".labels").selectAll("text")
+		.data(pie(is), key);
+
+	text.transition().duration(duration)
+		.style("opacity", function(d) {
+			return d.data.value == 0 ? 0 : 1;
+		})
+		.attrTween("transform", function(d) {
+			var interpolate = d3.interpolate(this._current, d);
+			var _this = this;
+			return function(t) {
+				var d2 = interpolate(t);
+				_this._current = d2;
+				var pos = outerArc.centroid(d2);
+				pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+				return "translate("+ pos +")";
+			};
+		})
+		.styleTween("text-anchor", function(d){
+			var interpolate = d3.interpolate(this._current, d);
+			return function(t) {
+				var d2 = interpolate(t);
+				return midAngle(d2) < Math.PI ? "start":"end";
+			};
+		}).text(function(d) {
+            return (d.data.label+" ("+d.value+")");
+        });
+	
+	text = svg.select(".labels").selectAll("text")
+		.data(pie(data), key);
+
+	text
+		.exit().transition().delay(duration)
+		.remove();
+
+	/* ------- SLICE TO TEXT POLYLINES -------*/
+
+	var polyline = svg.select(".lines").selectAll("polyline")
+		.data(pie(was), key);
+	
+	polyline.enter()
+		.append("polyline")
+		.style("opacity", 0)
+		.each(function(d) {
+			this._current = d;
+		});
+
+	polyline = svg.select(".lines").selectAll("polyline")
+		.data(pie(is), key);
+	
+	polyline.transition().duration(duration)
+		.style("opacity", function(d) {
+			return d.data.value == 0 ? 0 : .5;
+		})
+		.attrTween("points", function(d){
+			this._current = this._current;
+			var interpolate = d3.interpolate(this._current, d);
+			var _this = this;
+			return function(t) {
+				var d2 = interpolate(t);
+				_this._current = d2;
+				var pos = outerArc.centroid(d2);
+				pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+				return [arc.centroid(d2), outerArc.centroid(d2), pos];
+			};			
+		});
+	
+	polyline = svg.select(".lines").selectAll("polyline")
+		.data(pie(data), key);
+	
+	polyline
+		.exit().transition().delay(duration)
+		.remove();
+};
+
+</script>
+</body>
