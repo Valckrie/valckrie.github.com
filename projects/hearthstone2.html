@@ -69,10 +69,13 @@
 			<div class="wrapper style2">
 				<article id="projects">
 					<header>
-					<h2>Hearthstone WCS 2016 matchups</h2>
-						<p>Matchups | <a href="hearthstone2.html">Winrates</a></p>
-					</header>
+	           <h2>Hearthstone WCS 2016 matchups</h2>
+            <p><a href="hearthstone.html">Matchups</a> | Winrates</p>
+          </header>
+
 					<div class="container">
+
+					    
 						<div class="chart">
 							<section id="diagram"></section>
 						    <div id="tooltip"></div>
@@ -99,11 +102,12 @@
 			<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
     <script src="mapper.js"></script>
-    <script>
+    
+<script>
       //*******************************************************************
       //  CREATE MATRIX AND MAP
       //*******************************************************************
-      d3.csv('wcs2016mu.csv', function (error, data) {
+      d3.csv('wcs2016win.csv', function (error, data) {
         var mpr = chordMpr(data);
 
         mpr
@@ -125,7 +129,7 @@
 
         var fill = d3.scale.ordinal()
             .domain(d3.range(4))
-            .range(["#016E01", "#703606", "#8E1002", "#0092AB", "#7624AD", "#4C4D48", "#021885", "#AA8F00", "#C7C19F"]);
+            .range(["#016E01", "#703606", "#0092AB", "#8E1002", "#7624AD", "#4C4D48", "#021885", "#C7C19F", "#AA8F00"]);
 
         var chord = d3.layout.chord()
             .padding(.02)
@@ -188,32 +192,27 @@
                 })
                 .on("mouseout", function (d) { d3.select("#tooltip").style("visibility", "hidden") });
 
-// match up stats
-// Hunter vs Druid : 9 plays (9 matches)
-// 21.43% of hunter plays was vs druid
-// 11.39% of druid plays was vs hunter
+          // function chordTip (d) {
+          //   var p = d3.format(".0%"), q = d3.format("0d")
+          //   return "Chord info:<br/>"
+          //     + q(d.svalue) + " years overlap with " + d.sname + " and " + d.tname
+          // }
 
           function chordTip (d) {
            var p = d3.format(".2%"), q = d3.format(",.3r")
-           return "Matchup stats:<br/>"
-            + d.sname + " vs " + d.tname + " : "
-            + (d.sname === d.tname ? 
-              d.svalue + " plays " + " (" + d.svalue/2 + " matches)" + "<br/>"
-              :
-              d.svalue + " plays " + " (" + d.svalue + " matches)" + "<br/>")
-            + p(d.svalue/d.stotal) + " of " + d.sname + " plays was vs " + d.tname
-            + (d.sname === d.tname ? "": 
-              ("<br/>" + p(d.tvalue/d.ttotal) + " of " + d.tname + " plays was vs " + d.sname))
+           return "Chord Info:<br/>"
+            + p(d.svalue/d.stotal) + " (" + q(d.svalue) + ") of "
+            + d.sname + " winning matches vs " + d.tname
+            + (d.sname === d.tname ? "": ("<br/>while...<br/>"
+            + p(d.tvalue/d.ttotal) + " (" + q(d.tvalue) + ") of "
+            + d.tname + " winning matches vs " + d.sname))
           }
 
-// hunter was played 42 times 
-// 13.2% of total plays (318) (159 matches)
-
           function groupTip (d) {
-            var p = d3.format(".1%"), q = d3.format(".0f")
-            return "Class stats:<br/>"
-                + d.gname + " was played " + q(d.gvalue) + " times<br/>"
-                + p(d.gvalue/d.mtotal) + " of total plays (" + q(d.mtotal) + ")"
+            var p = d3.format(".1%"), q = d3.format(",.3r")
+            return "Group Info:<br/>"
+                + d.gname + " : " + q(d.gvalue) + "<br/>"
+                + p(d.gvalue/d.mtotal) + " of Matrix Total (" + q(d.mtotal) + ")"
           }
 
           function mouseover(d, i) {
