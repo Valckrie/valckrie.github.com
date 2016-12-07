@@ -102,7 +102,7 @@ var z = d3.scaleOrdinal(d3.schemeCategory20);
 
 var stack = d3.stack();
 
-d3.csv("https://dl.dropboxusercontent.com/u/19707064/data.csv", type, function(error, data) {
+d3.csv("convostack.csv", type, function(error, data) {
   if (error) throw error;
 
   //data.sort(function(a, b) { return b.total - a.total; });
