@@ -5,8 +5,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/add.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<script type="text/javascript">
@@ -17,279 +15,34 @@
 			ga('create', 'UA-84431506-1', 'auto');
 			ga('send', 'pageview');
 		</script>
+
+		 <style>
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        body {
+            display: table;
+        }
+
+        .my-block {
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        </style>
+
+
 	</head>
-	<body>
-
-		<!-- Nav -->
-			<nav id="nav">
-				<ul class="container">
-					<li><a href="#top">About</a></li>
-					<li><a href="#projects">Projects</a></li>
-					<li><a href="#skills">Skills</a></li>
-					<li><a href="#experience">Experience</a></li>
-					<li><a href="#contact">Contact</a></li>
-				</ul>
-			</nav>
-
-		<!-- Home -->
-			<div class="wrapper style1 first">
-				<article class="container" id="top">
-					<div class="row">
-						<div class="4u 12u(mobile)">
-							<span class="image fit"><img src="images/me.jpg" alt=""></span>
-						</div>
-						<div class="8u 12u(mobile)">
-							<header>
-								<h1 style="color:#f9f9f9 !important"><strong>Wei Yan</strong></h1>
-							</header>
-							<p><strong>Software Developer</strong></p>
-							<p>Fullstack .NET developer & Computer Science graduate from University of Bristol</p>
-						</div>
-					</div>
-				</article>
-			</div>
-
-		<!-- Portfolio -->
-			<div class="wrapper style3">
-				<article id="projects">
-					<header>
-						<h2>Projects</h2>
-						<br>
-						<p></p>
-					</header>
-					<div class="container">
-						<div class="row">
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="https://play.google.com/store/apps/details?id=uk.co.weiyan.pokeromahatrainer" class="image featured"><img src="images/play.png" alt="" /></a>
-									<h3><a href="#">Poker Omaha Hand Trainer</a></h3>
-									<p>Android, Java</p>
-								</article>
-							</div>
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="projects/conversation" class="image featured"><img src="images/donut.png" alt="" /></a>
-									<h3><a href="projects/conversation">Conversation data visualization</a></h3>
-									<p>D3.js</p>
-								</article>
-							</div>
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="https://www.youtube.com/watch?v=ePcorza4ekE" class="image featured"><img src="images/vid.png" alt="" /></a>
-									<h3><a href="https://www.youtube.com/watch?v=ePcorza4ekE">Object detector with augmented reality</a></h3>
-									<p>Android, Java, OpenCV</p>
-								</article>
-							</div>
-						</div>
-						<div class="row">
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="projects/gatehouse.html" class="image featured"><img src="images/building.png" alt="" /></a>
-									<h3><a href="projects/gatehouse.html">Abbey Gatehouse model</a></h3>
-									<p>Maya</p>
-								</article>
-							</div>
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="projects/hearthstone" class="image featured"><img src="images/hs.png" alt="" /></a>
-									<h3><a href="projects/hearthstone">Hearthstone matchups chord diagram</a></h3>
-									<p>D3.js</p>
-								</article>
-							</div>
-							<div class="4u 12u(mobile)">
-								<article class="box style2">
-									<a href="projects/cartoon" class="image featured"><img src="images/cartoon.png" alt="" /></a>
-									<h3><a href="projects/cartoon">Cartoon render</a></h3>
-									<p>Maya</p>
-								</article>
-							</div>
-						</div>
-					</div>
-					<footer>
-						<!-- <p>Lorem ipsum dolor sit sapien vestibulum ipsum primis?</p> -->
-						<!-- <a href="#contact" class="button big scrolly">Get in touch with me</a> -->
-					</footer>
-				</article>
-			</div>
-
-			<div class="wrapper style4">
-				<article id="skills">
-					<header>
-						<h2>Skills</h2>
-						<p></p>
-					</header>
-					<div class="container" id="skills">
-						<h3>Languages</h3>
-						<ul class="skill-item">
-							<li>C#</li>
-							<li>Java</li>
-							<li>JavaScript</li>
-							<li>SQL</li>							
-							<li>HTML</li>
-							<li>CSS</li>
-							<li>XSLT</li>
-						</ul>
-						<h3>Frameworks/Tools</h3>
-						<ul class="skill-item">
-							<li>ASP.NET</li>
-							<li>Android</li>
-							<li>Entity Framework</li>
-							<li>jQuery</li>
-							<li>Bootstrap</li>
-							<li>SQL Server</li>
-							<li>TFS</li>
-							<li>GitHub</li>
-							<li>Maya</li>
-						</ul>
-					</div>
-					<footer>
-						<!-- <p>Lorem ipsum dolor sit sapien vestibulum ipsum primis?</p> -->
-						<!-- <a href="#portfolio" class="button big scrolly">See some of my recent work</a> -->
-					</footer>
-				</article>
-			</div>
-
-		<!-- Work -->
-			<div class="wrapper style3">
-				<article id="experience">
-					<header>
-						<h2>Experience</h2>
-						<br>
-						<p></p>
-					</header>
-					<div class="container" id="work">
-
-						<div class="row">
-							<div class="12u 12u(mobile)">
-								<section class="box style1">
-									<span class="image" style="width:200px">
-									<img src="images/bw.jpg" alt="">
-									</span>
-									<p/>
-									<h3>Barnett Waddingham</h3>
-									<h4>Software Developer</h4>
-									<h5></h5>
-									<p>
-										October 2015 - Present
-										<br>
-										Full stack .NET developer building internal and external client facing web applications using C#, ASP.NET MVC, MS SQL Server, Entity Framework, TFS, JavaScript with jQuery, Bootstrap and CSS. Worked as part of a team adopting scrum methodology to deliver agile iterations, using continuous integration and automated deployments.
-									</p>
-								</section>
-							</div>
-							<div class="12u 12u(mobile)">
-								<section class="box style1">
-									<span class="image" style="width:200px">
-									<img src="images/logo-uob.svg" alt="">
-									</span>
-									<p/>
-									<h3>University of Bristol</h3>
-									<h4>Computer Science Bsc (2:1)</h4>
-									<h5></h5>
-									<p>
-										October 2012 - July 2015
-									</p>
-								</section>
-							</div>
-						</div>
-					</div>
-					<footer>
-						<!-- <p>Lorem ipsum dolor sit sapien vestibulum ipsum primis?</p> -->
-						<!-- <a href="#portfolio" class="button big scrolly">See some of my recent work</a> -->
-					</footer>
-				</article>
-			</div>
-
-		<!-- Contact -->
-			<div class="wrapper style4">
-				<article id="contact" class="container 75%">
-					<header>
-						<br>
-						<br>
-						<h2>Contact me</h2>
-						<p></p>
-						<br>
-						<br>
-					</header>
-					<div>
-						<!-- <div class="row">
-							<div class="12u">
-								<form method="post" action="#">
-									<div>
-										<div class="row">
-											<div class="6u 12u(mobile)">
-												<input type="text" name="name" id="name" placeholder="Name" />
-											</div>
-											<div class="6u 12u(mobile)">
-												<input type="text" name="email" id="email" placeholder="Email" />
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u">
-												<input type="text" name="subject" id="subject" placeholder="Subject" />
-											</div>
-										</div>
-										<div class="row">
-											<div class="12u">
-												<textarea name="message" id="message" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="row 200%">
-											<div class="12u">
-												<ul class="actions">
-													<li><input type="submit" value="Send Message" /></li>
-													<li><input type="reset" value="Clear Form" class="alt" /></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div> -->
-						<div class="row">
-							<div class="12u">
-								<hr />
-								<ul class="social">
-									<!-- <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li> -->
-									<!-- <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li> -->
-									<!-- <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li> -->
-									<li><a href="https://www.linkedin.com/in/weiyanuk" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="mailto:weiyan94@gmail.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
-									<!-- <li><a href="#" class="icon fa-tumblr"><span class="label">Tumblr</span></a></li> -->
-									<!-- <li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li> -->
-									<!-- <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li> -->
-									<!--
-									<li><a href="#" class="icon fa-rss"><span>RSS</span></a></li>
-									<li><a href="#" class="icon fa-instagram"><span>Instagram</span></a></li>
-									<li><a href="#" class="icon fa-foursquare"><span>Foursquare</span></a></li>
-									<li><a href="#" class="icon fa-skype"><span>Skype</span></a></li>
-									<li><a href="#" class="icon fa-soundcloud"><span>Soundcloud</span></a></li>
-									<li><a href="#" class="icon fa-youtube"><span>YouTube</span></a></li>
-									<li><a href="#" class="icon fa-blogger"><span>Blogger</span></a></li>
-									<li><a href="#" class="icon fa-flickr"><span>Flickr</span></a></li>
-									<li><a href="#" class="icon fa-vimeo"><span>Vimeo</span></a></li>
-									-->
-								</ul>
-								<hr />
-							</div>
-						</div>
-					</div>
-					<footer>
-						<ul id="copyright">
-							<li>&copy; Wei Yan 2016</li>
-							<li><a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</footer>
-				</article>
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/skel-viewport.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+	<body style="background:#282828">
+		
+		<div class="my-block">
+			<h1 style="color:#f9f9f9; font-size: 160px"><strong>W</strong></h1>
+	    </div>
 
 	</body>
 </html>
